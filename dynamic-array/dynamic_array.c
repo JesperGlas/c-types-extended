@@ -7,10 +7,15 @@ DynamicArray *initDynamicArray(int size)
 {
 	// allocating memory for struct
 	DynamicArray *arr = malloc(sizeof(DynamicArray));
-	printf(	"Allocating memory for struct DynamicArray..\n");
-	printf(	"\tEstimate/Actual: %lu/%lu bytes\n",
-		sizeof(DynamicArray),
-		sizeof(*arr) );
+
+	// verbose info
+	if (VERBOSE)
+	{
+		printf(	"Allocating memory for struct DynamicArray..\n");
+		printf(	"\tEstimate/Actual: %lu/%lu bytes\n",
+			sizeof(DynamicArray),
+			sizeof(*arr) );
+	}
 
 	// initializing helper variables
 	arr->m_size = size;
@@ -18,29 +23,46 @@ DynamicArray *initDynamicArray(int size)
 
 	// allocating memory for data
 	arr->m_data = malloc(arr->m_size * sizeof(int));
-	printf(	"Allocating memory for array data..\n");
-	printf(	"\tActual: (%d*%lu) %lu bytes\n",
-		arr->m_size,
-		sizeof(int),
-		arr->m_size * sizeof(int) );
+
+	// verbose info
+	if (VERBOSE)
+	{
+		printf(	"Allocating memory for array data..\n");
+		printf(	"\tActual: (%d*%lu) %lu bytes\n",
+			arr->m_size,
+			sizeof(int),
+			arr->m_size * sizeof(int) );
+	}
 
 	return arr;
 }
 
 void freeDynamicArray(DynamicArray *arr)
 {
+	// free memory of data
 	free(arr->m_data);
-	printf( "Freeing memory of array data..\n");
-	printf(	"\tActual: (%d*%lu) %lu bytes\n",
-		arr->m_size,
-		sizeof(int),
-		arr->m_size * sizeof(int) );
 
+	// verbose info
+	if (VERBOSE)
+	{
+		printf( "Freeing memory of array data..\n");
+		printf(	"\tActual: (%d*%lu) %lu bytes\n",
+			arr->m_size,
+			sizeof(int),
+			arr->m_size * sizeof(int) );
+	}
+
+	// free memory of struct
 	free(arr);
-	printf(	"Freeing memory for struct DynamicArray..\n");
-	printf(	"\tEstimate/Actual: %lu/%lu bytes\n",
-		sizeof(DynamicArray),
-		sizeof(*arr) );
+
+	// verbose info
+	if (VERBOSE)
+	{
+		printf(	"Freeing memory for struct DynamicArray..\n");
+		printf(	"\tEstimate/Actual: %lu/%lu bytes\n",
+			sizeof(DynamicArray),
+			sizeof(*arr) );
+	}
 }
 
 int size(DynamicArray *arr)
@@ -80,7 +102,10 @@ void append(DynamicArray *arr, int value)
 	// if pointer exceeds size, allocate larger array
 	if (arr->m_ptr >= arr->m_size)
 	{
-		printf("Expanding array..\n");
+		// verbose info
+		if (VERBOSE)
+			printf("Expanding array..\n");
+
 		// save old size for memcpy, update size
 		int oldSize = arr->m_size;
 		arr->m_size += 10;
@@ -88,27 +113,42 @@ void append(DynamicArray *arr, int value)
 		// save old pointer to data for memcpy, allocate new memory
 		int *tmp = arr->m_data;
 		arr->m_data = malloc(arr->m_size * sizeof(int));
-		printf(	"Allocating memory for additional data..\n");
-		printf(	"\tActual: (%d*%lu) %lu bytes\n",
-			arr->m_size,
-			sizeof(int),
-			arr->m_size * sizeof(int) );
+
+		// verbose info
+		if (VERBOSE)
+		{
+			printf(	"Allocating memory for additional data..\n");
+			printf(	"\tActual: (%d*%lu) %lu bytes\n",
+				arr->m_size,
+				sizeof(int),
+				arr->m_size * sizeof(int) );
+		}
 
 		// copy over data
 		for (size_t i = 0; i < arr->m_ptr; i++)
 		{
 			arr->m_data[i] = tmp[i];
 		}
-		printf(	"Moving %lu bytes of data..\n",
-			oldSize * sizeof(int) );
+
+		// verbose info
+		if (VERBOSE)
+		{
+			printf(	"Moving %lu bytes of data..\n",
+				oldSize * sizeof(int) );
+		}
 
 		// free memory of old data
 		free(tmp);
-		printf(	"Freeing memory of old data..\n");
-		printf(	"\tActual: (%d*%lu) %lu bytes\n",
-			oldSize,
-			sizeof(int),
-			oldSize * sizeof(int) );
+
+		// verbose info
+		if (VERBOSE)
+		{
+			printf(	"Freeing memory of old data..\n");
+			printf(	"\tActual: (%d*%lu) %lu bytes\n",
+				oldSize,
+				sizeof(int),
+				oldSize * sizeof(int) );
+		}
 	}
 
 	// append new value

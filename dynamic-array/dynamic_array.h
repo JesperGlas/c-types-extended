@@ -1,6 +1,8 @@
 #ifndef __DYNAMIC_ARRAY_H__
 #define __DYNAMIC_ARRAY_H__
 
+#define VERBOSE 0
+
 typedef struct DynamicArray
 {
 	int m_size;

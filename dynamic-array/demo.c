@@ -4,6 +4,8 @@
 int main(int args, char **argv)
 {
 	printf("Hello world!\n");
+	printf("Verbose flag is set to: %d\n", VERBOSE);
+
 
 	// allocate memory for and initialize a dynamic array
 	DynamicArray *arr = initDynamicArray(3);

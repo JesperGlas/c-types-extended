@@ -152,7 +152,7 @@ int listPopFirst(List *lst);
  *
  * PRE:
  *	(List *) lst:
- *		The list that should be sorted.
+ *		Pointer to the list that should be sorted.
  * */
 void listSortBubble(List *lst);
 
@@ -161,8 +161,17 @@ void listSortBubble(List *lst);
  *
  * PRE:
  *	(List *) lst:
- *		The list that should be sorted.
+ *		Pointer to the list that should be sorted.
  * */
 void listSortInsertion(List *lst);
+
+/**
+ * Function that sorts the list using the selection sort algorithm.
+ *
+ * PRE:
+ *	(List *) lst:
+ *		Pointer to the list that should be sorted.
+ * */
+void listSortSelection(List *lst);
 
 #endif

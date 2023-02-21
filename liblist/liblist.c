@@ -264,6 +264,10 @@ int listPopFirst(List *lst)
 
 void listSortBubble(List *lst)
 {
+	// make sure list has atleast 2 elements
+	if (lst->m_ptr < 2)
+		return;
+
 	// set a variable for how many elements the list contains
 	int n = lst->m_ptr;
 
@@ -288,6 +292,10 @@ void listSortBubble(List *lst)
 
 void listSortInsertion(List *lst)
 {
+	// make sure list has atleast 2 elements
+	if (lst->m_ptr < 2)
+		return;
+
 	// set a variable for how many elements the list contains
 	int n = lst->m_ptr;
 
@@ -314,5 +322,35 @@ void listSortInsertion(List *lst)
 		// re-insert tmp value in list at duplicated element
 		lst->m_data[j+1] = tmp;
 
+	} // end of outer loop
+}
+
+void listSortSelection(List *lst)
+{
+	// make sure list has atleast 2 elements
+	if (lst->m_ptr < 2)
+		return;
+
+	// set variable for how many elements the list contains
+	int n = lst->m_ptr;
+
+	// sorting phase, incrementing from index 0 (outer loop)
+	for (int i = 0; i < n; i++)
+	{
+		// variable to the smallest value of the inner loop
+		int *smallest = &lst->m_data[i];
+
+		// sorting phase, incrementing from i+1 (inner loop)
+		for (int j = (i + 1); j < n; j++)
+		{
+			// comparison phase (element at j and dereferenced smallest)
+			if (lst->m_data[j] < *smallest)
+			{
+				smallest = &lst->m_data[j];
+			} // end of comparsion
+		} // end of inner loop
+		
+		// swap current value at i with smallest value of unsorted
+		swap(&lst->m_data[i], smallest);
 	} // end of outer loop
 }

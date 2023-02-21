@@ -23,7 +23,7 @@ int main(int args, char **argv)
 	listPrint(lst);
 
 	// sort list
-	listSortInsertion(lst);
+	listSortSelection(lst);
 	listPrint(lst);
 
 	// free lst

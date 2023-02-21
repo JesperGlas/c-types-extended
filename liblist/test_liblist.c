@@ -114,7 +114,8 @@ static void testListSortTemplate(void (*sort_func)(List *))
 
 // test various sorting algorithms using a template testing function
 void testListSortBubble(void) { testListSortTemplate(listSortBubble); }
-void testListSortInsertion(void) { testListSortTemplate( listSortInsertion ); }
+void testListSortInsertion(void) { testListSortTemplate(listSortInsertion); }
+void testListSortSelection(void) { testListSortTemplate(listSortSelection); }
 
 int main(void)
 {

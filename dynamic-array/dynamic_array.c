@@ -53,6 +53,28 @@ int count(DynamicArray *arr)
 	return arr->m_ptr;
 }
 
+void print(DynamicArray *arr)
+{
+	if (0 < arr->m_ptr)
+	{
+		printf("[%d", arr->m_data[0]);
+		for (size_t i = 1; i < arr->m_ptr; i++)
+		{
+			printf(", %d", arr->m_data[i]);
+		}
+		printf("]\n");
+	}
+}
+
+void info(DynamicArray *arr)
+{
+	printf("### ARRAY INFO ###\n");
+	printf("Count/Size: %d/%d\n", arr->m_ptr, arr->m_size);
+	printf("Data:\n");
+	print(arr);
+	printf("### END ###\n");
+}
+
 void append(DynamicArray *arr, int value)
 {
 	// if pointer exceeds size, allocate larger array
@@ -96,24 +118,33 @@ void append(DynamicArray *arr, int value)
 	arr->m_ptr++;
 }
 
-void print(DynamicArray *arr)
+int pop(DynamicArray *arr, int index)
 {
-	if (0 < arr->m_ptr)
+	if (index < 0 || index >= arr->m_ptr)
 	{
-		printf("[%d", arr->m_data[0]);
-		for (size_t i = 1; i < arr->m_ptr; i++)
-		{
-			printf(", %d", arr->m_data[i]);
-		}
-		printf("]\n");
+		printf("WARNING: Index out of bounds, returning -1\n");
+		return -1;
 	}
+
+	// save value at index
+	int tmp = arr->m_data[index];
+	
+	// decrement ptr
+	arr->m_ptr--;
+
+	// move all elements after pop back
+	for (int i = index; i < arr->m_ptr; i++)
+	{
+		arr->m_data[i] = arr->m_data[i+1];
+	}
+
+	// set value at ptr to 0
+	arr->m_data[arr->m_ptr] = 0;
+
+	return tmp;
 }
 
-void info(DynamicArray *arr)
+int popFirst(DynamicArray *arr)
 {
-	printf("### ARRAY INFO ###\n");
-	printf("Count/Size: %d/%d\n", arr->m_ptr, arr->m_size);
-printf("Data:\n");
-	print(arr);
-	printf("### END ###\n");
+	return pop(arr, 0);
 }

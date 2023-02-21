@@ -10,10 +10,14 @@ typedef struct DynamicArray
 
 DynamicArray *initDynamicArray(int size);
 void freeDynamicArray(DynamicArray *arr);
+
 int size(DynamicArray *arr);
 int count(DynamicArray *arr);
-void append(DynamicArray *arr, int value);
 void print(DynamicArray *arr);
 void info(DynamicArray *arr);
+
+void append(DynamicArray *arr, int value);
+int pop(DynamicArray *arr, int index);
+int popFirst(DynamicArray *arr);
 
 #endif

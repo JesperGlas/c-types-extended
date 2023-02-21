@@ -21,6 +21,9 @@ int main(int args, char **argv)
 	append(arr, 5);
 	print(arr);
 
+	pop(arr, 2);
+	print(arr);
+
 	// free arr
 	freeDynamicArray(arr);
 

@@ -83,7 +83,8 @@ void testlistPop(void)
 	freeList(lst);
 }
 
-void testListBubbleSort(void)
+// helper function to test a sorting algorithm
+static void testListSortTemplate(void (*sort_func)(List *))
 {
 	// init a list
 	int n = 10;
@@ -96,7 +97,9 @@ void testListBubbleSort(void)
 	TEST_ASSERT_EQUAL(n, listCount(lst));
 
 	// sort list
-	listSortBubble(lst);
+	sort_func(lst);
+	TEST_ASSERT_EQUAL(n, listSize(lst));
+	TEST_ASSERT_EQUAL(n, listCount(lst));
 
 	// make sure list is sorted
 	for (int i = 0; i < (n - 1); i++)
@@ -109,6 +112,10 @@ void testListBubbleSort(void)
 	freeList(lst);
 }
 
+// test various sorting algorithms using a template testing function
+void testListSortBubble(void) { testListSortTemplate(listSortBubble); }
+void testListSortInsertion(void) { testListSortTemplate( listSortInsertion ); }
+
 int main(void)
 {
 	UNITY_BEGIN();
@@ -116,7 +123,8 @@ int main(void)
 	RUN_TEST(testListAppend);
 	RUN_TEST(testlistPop);
 	RUN_TEST(testListExtend);
-	RUN_TEST(testListBubbleSort);
+	RUN_TEST(testListSortBubble);
+	RUN_TEST(testListSortInsertion);
 	
 	return UNITY_END();
 }

@@ -148,11 +148,21 @@ int listPop(List *lst, int index);
 int listPopFirst(List *lst);
 
 /**
- * Functions that sorts the list using the bubble sort algorithm
+ * Functions that sorts the list using the bubble sort algorithm.
+ *
  * PRE:
  *	(List *) lst:
- *		The list that is to be sorted.
+ *		The list that should be sorted.
  * */
 void listSortBubble(List *lst);
+
+/**
+ * Function that sorts the list using the insertion sort algorithm.
+ *
+ * PRE:
+ *	(List *) lst:
+ *		The list that should be sorted.
+ * */
+void listSortInsertion(List *lst);
 
 #endif

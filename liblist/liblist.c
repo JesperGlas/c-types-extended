@@ -165,7 +165,7 @@ void listAppend(List *lst, int value)
 	// append new value
 	lst->m_data[lst->m_ptr] = value;
 
-	// increment pointer to last element
+	// increment pointer to next empty index
 	lst->m_ptr++;
 }
 
@@ -174,7 +174,7 @@ void listExtend(List *lst, int values[], int values_count)
 	int new_count = lst->m_ptr + values_count;
 
 	// check if all new values fit in existing list
-	// allocate more memory and move data if not
+	//	allocate more memory and move data if not
 	if (lst->m_size < new_count)
 	{
 		// save old pointer to data and old size
@@ -218,10 +218,13 @@ void listExtend(List *lst, int values[], int values_count)
 		}
 	}
 
-	// copying new data
+	// index for the new values array
 	int i = 0;
+	// run until all new values are added, i.e. when ptr reaches empty element
 	while (lst->m_ptr < new_count) {
+		// add new value at ptr
 		lst->m_data[lst->m_ptr] = values[i];
+		// increment list ptr and new value array index
 		lst->m_ptr++;
 		i++;
 	}
@@ -229,6 +232,7 @@ void listExtend(List *lst, int values[], int values_count)
 
 int listPop(List *lst, int index)
 {
+	// check index out of bounds
 	if (index < 0 || index >= lst->m_ptr)
 	{
 		printf("WARNING: Index out of bounds, returning -1\n");
@@ -260,7 +264,7 @@ int listPopFirst(List *lst)
 
 void listSortBubble(List *lst)
 {
-	// set variable for how many consecutive elements the list contains
+	// set a variable for how many elements the list contains
 	int n = lst->m_ptr;
 
 	// sorting phase (outer loop)
@@ -274,7 +278,41 @@ void listSortBubble(List *lst)
 			{
 				// swaping phase
 				swap(&lst->m_data[j], &lst->m_data[j+1]);
+
 			} // end comparison phase
+
 		} // end inner loop
+
 	} // end outer loop
+}
+
+void listSortInsertion(List *lst)
+{
+	// set a variable for how many elements the list contains
+	int n = lst->m_ptr;
+
+	// sorting phase, incrementing from index 0 (outer loop)
+	for (int i = 1; i < n; i++)
+	{
+		// save value at current i
+		int tmp = lst->m_data[i];
+
+		// variable for inner loop index, start from element before index i
+		int j = i - 1;
+
+		// sorting phase, decrementing from i-1 towards 0 (inner loop
+		while (j >= 0 && lst->m_data[j] > tmp)
+		{
+			// move all elements forward in list to make room for tmp insertion
+			lst->m_data[j+1] = lst->m_data[j];
+			
+			// decrement inner loop index
+			j--;
+
+		} // end of inner loope
+
+		// re-insert tmp value in list at duplicated element
+		lst->m_data[j+1] = tmp;
+
+	} // end of outer loop
 }

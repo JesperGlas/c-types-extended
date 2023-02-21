@@ -3,7 +3,7 @@
 
 // verbose flag for memory information in terminal
 #ifndef VERBOSE
-#define VERBOSE 1
+#define VERBOSE 0
 #endif
 
 /**

@@ -164,7 +164,7 @@ void listExtend(List *lst, int values[], int values_count)
 
 	// check if all new values fit in existing list
 	// allocate more memory and move data if not
-	if (lst->m_size <= new_count)
+	if (lst->m_size < new_count)
 	{
 		// save old pointer to data and old size
 		int *tmp = lst->m_data;

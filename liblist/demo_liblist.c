@@ -10,20 +10,12 @@ int main(int args, char **argv)
 	// allocate memory for and initialize a list
 	List *lst = initList(3);
 
-	listAppend(lst, 0);
-	listPrint(lst);
-	listAppend(lst, 1);
-	listPrint(lst);
-	listAppend(lst, 2);
-	listPrint(lst);
-	listAppend(lst, 3);
-	listPrint(lst);
-	listAppend(lst, 4);
-	listPrint(lst);
-	listAppend(lst, 5);
-	listPrint(lst);
+	int a[] = {1, 2};
+	listExtend(lst, a, 2);
 
-	listPop(lst, 2);
+	int b[] = {3, 4, 5, 6, 7, 8};
+	listExtend(lst, b, 6);
+
 	listPrint(lst);
 
 	// free lst

@@ -104,7 +104,7 @@ void listAppend(List *lst, int value)
 	{
 		// verbose info
 		if (VERBOSE)
-			printf("Expanding array..\n");
+			printf("Expanding list..\n");
 
 		// save old size for memcpy, update size
 		int oldSize = lst->m_size;
@@ -156,6 +156,64 @@ void listAppend(List *lst, int value)
 
 	// increment pointer to last element
 	lst->m_ptr++;
+}
+
+void listExtend(List *lst, int values[], int values_count)
+{
+	int new_count = lst->m_ptr + values_count;
+
+	// check if all new values fit in existing list
+	// allocate more memory and move data if not
+	if (lst->m_size <= new_count)
+	{
+		// save old pointer to data and old size
+		int *tmp = lst->m_data;
+		int old_size = lst->m_size;
+
+		// set new size of list (place for all data and additional 10 elements)
+		lst->m_size = new_count + 10;
+
+		// allocate new memory
+		lst->m_data = malloc( lst->m_size * sizeof(int));
+
+		// verbose info
+		if (VERBOSE)
+		{
+			printf("Expanding list..\n");
+			printf("Allocating memory for additional data..\n");
+			printf(	"\tActual: (%d*%lu) %lu\n",
+				lst->m_size,
+				sizeof(int),
+				lst->m_size * sizeof(int) );
+		}
+
+		// copying old data to new address
+		for (int i = 0; i < lst->m_ptr; i++)
+		{
+			lst->m_data[i] = tmp[i];
+		}
+		
+		// free up old data
+		free(tmp);
+
+		// verbose info
+		if (VERBOSE)
+		{
+			printf("Freeing memory of old data..\n");
+			printf(	"\tActual: (%d*%lu) %lu bytes\n",
+				old_size,
+				sizeof(int),
+				old_size * sizeof(int) );
+		}
+	}
+
+	// copying new data
+	int i = 0;
+	while (lst->m_ptr < new_count) {
+		lst->m_data[lst->m_ptr] = values[i];
+		lst->m_ptr++;
+		i++;
+	}
 }
 
 int listPop(List *lst, int index)

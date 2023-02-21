@@ -3,6 +3,17 @@
 #include "string.h"
 #include "liblist.h"
 
+/* ### PRIVATE HELP FUNCTIONS ### */
+static void swap(int *a, int *b)
+{
+	// dereference first value and save as temporary
+	int tmp = *a;
+	// set value at ptr a to value at ptr b
+	*a = *b;
+	// set value at ptr b to value of tmp (old value at a)
+	*b = tmp;
+}
+
 List *initList(int size)
 {
 	// allocating memory for struct
@@ -245,4 +256,25 @@ int listPop(List *lst, int index)
 int listPopFirst(List *lst)
 {
 	return listPop(lst, 0);
+}
+
+void listSortBubble(List *lst)
+{
+	// set variable for how many consecutive elements the list contains
+	int n = lst->m_ptr;
+
+	// sorting phase (outer loop)
+	for (int i = 0; i < (n - 1); i++)
+	{
+		// sorting phase (inner loop)
+		for (int j = 0; j < (n - i - 1); j++)
+		{
+			// comparison phase
+			if (lst->m_data[j] > lst->m_data[j+1])
+			{
+				// swaping phase
+				swap(&lst->m_data[j], &lst->m_data[j+1]);
+			} // end comparison phase
+		} // end inner loop
+	} // end outer loop
 }

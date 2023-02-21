@@ -8,14 +8,15 @@ int main(int args, char **argv)
 
 
 	// allocate memory for and initialize a list
-	List *lst = initList(3);
+	List *lst = initList(5);
 
-	int a[] = {1, 2};
-	listExtend(lst, a, 2);
+	// populate the list
+	int tmp[] = {2, 3, 6, 1, 9, 8, 0, 4, 7, 5};
+	listExtend(lst, tmp, 10);
+	listPrint(lst);
 
-	int b[] = {3, 4, 5, 6, 7, 8};
-	listExtend(lst, b, 6);
-
+	// sort list
+	listSortBubble(lst);
 	listPrint(lst);
 
 	// free lst

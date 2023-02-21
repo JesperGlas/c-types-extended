@@ -147,4 +147,12 @@ void listExtend(List *lst, int values[], int values_size);
 int listPop(List *lst, int index);
 int listPopFirst(List *lst);
 
+/**
+ * Functions that sorts the list using the bubble sort algorithm
+ * PRE:
+ *	(List *) lst:
+ *		The list that is to be sorted.
+ * */
+void listSortBubble(List *lst);
+
 #endif

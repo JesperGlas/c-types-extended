@@ -31,8 +31,6 @@ void test_bst_add(void)
 	bst_add(tree, 9);
 	TEST_ASSERT_EQUAL(4, tree->m_count);
 
-	bst_print(tree);
-
 	bst_free(tree);
 }
 

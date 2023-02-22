@@ -127,6 +127,7 @@ int main(void)
 	RUN_TEST(testListExtend);
 	RUN_TEST(testListSortBubble);
 	RUN_TEST(testListSortInsertion);
+	RUN_TEST(testListSortSelection);
 	RUN_TEST(testListSortQuick);
 	
 	return UNITY_END();

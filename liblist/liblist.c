@@ -264,6 +264,9 @@ int listPopFirst(List *lst)
 
 void listSortBubble(List *lst)
 {
+	// verbose info, counts swaps
+	int swaps = 0;
+
 	// make sure list has atleast 2 elements
 	if (lst->m_ptr < 2)
 		return;
@@ -282,16 +285,26 @@ void listSortBubble(List *lst)
 			{
 				// swaping phase
 				swap(&lst->m_data[j], &lst->m_data[j+1]);
+				swaps++;
 
 			} // end comparison phase
 
 		} // end inner loop
 
 	} // end outer loop
-}
+	
+	// verbose info
+	if (VERBOSE)
+	{
+		printf("Bubblesorted in %d swaps.\n", swaps);
+	}
+} // end listSortBubble
 
 void listSortInsertion(List *lst)
 {
+	// verbose info, counts swaps
+	int swaps = 0;
+
 	// make sure list has atleast 2 elements
 	if (lst->m_ptr < 2)
 		return;
@@ -313,6 +326,7 @@ void listSortInsertion(List *lst)
 		{
 			// move all elements forward in list to make room for tmp insertion
 			lst->m_data[j+1] = lst->m_data[j];
+			swaps++;
 			
 			// decrement inner loop index
 			j--;
@@ -321,12 +335,22 @@ void listSortInsertion(List *lst)
 
 		// re-insert tmp value in list at duplicated element
 		lst->m_data[j+1] = tmp;
+		swaps++;
 
 	} // end of outer loop
-}
+	
+	// verbose info
+	if (VERBOSE)
+	{
+		printf("Insertion Sort in %d swaps.\n", swaps);
+	}
+} // end of listInsertionSort
 
 void listSortSelection(List *lst)
 {
+	// verbose info, counts swaps
+	int swaps = 0;
+
 	// make sure list has atleast 2 elements
 	if (lst->m_ptr < 2)
 		return;
@@ -352,8 +376,15 @@ void listSortSelection(List *lst)
 		
 		// swap current value at i with smallest value of unsorted
 		swap(&lst->m_data[i], smallest);
+		swaps++;
 	} // end of outer loop
-}
+	
+	// verbose info
+	if (VERBOSE)
+	{
+		printf("Selection Sort in %d swaps.\n", swaps);
+	}
+} // end of listSortSelection
 
 static int listSortAroundPivot(List *lst, int low, int high)
 {
@@ -361,11 +392,11 @@ static int listSortAroundPivot(List *lst, int low, int high)
 	if (low == high)
 		return low;
 
-	// set last element at high index as pivot value
-	int pivot = lst->m_data[high];
-
 	// set index for lowest unsorted element
 	int i = low;
+
+	// set last element at high index as pivot value
+	int pivot = lst->m_data[high];
 
 	// sorting phase loop
 	for (int j = low; j <= high; j++)
@@ -374,7 +405,8 @@ static int listSortAroundPivot(List *lst, int low, int high)
 		if (lst->m_data[j] <= pivot)
 		{
 			// swap elem[j] with first unsorted element and increment i
-			swap(&lst->m_data[i++], &lst->m_data[j]);
+			swap(&lst->m_data[i], &lst->m_data[j]);
+			i++;
 		}
 	} // end loop
 	
@@ -394,7 +426,7 @@ static void listSortQuickAux(List *lst, int low, int high)
 		listSortQuickAux(lst, low, (pivot - 1));
 		listSortQuickAux(lst, (pivot + 1), high);
 	}
-}
+} // end of listSortQuickAux
 
 void listSortQuick(List *lst)
 {

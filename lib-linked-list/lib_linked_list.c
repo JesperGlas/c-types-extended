@@ -1,6 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "liblinkedlist.h"
+#include "lib_linked_list.h"
 
 LLNode *lln_init(int value)
 {

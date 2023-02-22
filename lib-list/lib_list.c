@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
-#include "liblist.h"
+#include "lib_list.h"
 
 /* ### PRIVATE HELP FUNCTIONS ### */
 static void swap(int *a, int *b)

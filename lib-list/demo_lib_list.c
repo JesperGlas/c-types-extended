@@ -1,5 +1,5 @@
 #include "stdio.h"
-#include "liblist.h"
+#include "lib_list.h"
 
 int main(int args, char **argv)
 {

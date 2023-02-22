@@ -1,4 +1,4 @@
-PROJECT_NAME := liblist
+PROJECT_NAME := lib_list
 
 CC := gcc
 CFLAGS := -Wall

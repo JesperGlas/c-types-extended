@@ -2,184 +2,180 @@
 #include "stdlib.h"
 #include "liblinkedlist.h"
 
-void testLib()
+LLNode *lln_init(int value)
 {
-	printf("Hello from lib\n");
-}
-
-LLNode *lLNodeInit(int value)
-{
-	LLNode *node = malloc(sizeof(LLNode));
-	node->m_data = value;
-	node->m_next = NULL;
-	node->m_prev = NULL;
+	LLNode *st_node = malloc(sizeof(LLNode));
+	st_node->m_data = value;
+	st_node->m_next = NULL;
+	st_node->m_prev = NULL;
 
 	// verbose info
 	if (VERBOSE)
 	{
 		printf("Allocating memory for new node..\n");
-		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LLNode), sizeof(*node));
+		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LLNode), sizeof(*st_node));
 	}
 
-	return node;
+	return st_node;
 }
 
-void lLNodeFree(LLNode *node)
+void lln_free(LLNode *st_node)
 {
 	// verbose info
 	if (VERBOSE)
 	{
 		printf("Freeing memory for node..\n");
-		printf("\tEstinmate/Actual: %lu/%lu bytes\n", sizeof(LLNode), sizeof(*node));
+		printf("\tEstinmate/Actual: %lu/%lu bytes\n", sizeof(LLNode), sizeof(*st_node));
 	}
 
-	free(node);
+	free(st_node);
 
 	return;
 }
 
-LList *lListInit()
+LList *ll_init()
 {
-	LList *lst = malloc(sizeof(LList));
-	lst->m_head = NULL;
-	lst->m_tail = NULL;
-	lst->m_count = 0;
+	LList *st_lst = malloc(sizeof(LList));
+	st_lst->m_head = NULL;
+	st_lst->m_tail = NULL;
+	st_lst->m_count = 0;
 
 	// verbose info
 	if (VERBOSE)
 	{
 		printf("Allocating memory for new linked list..\n");
-		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LList), sizeof(*lst));
+		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LList), sizeof(*st_lst));
 	}
 
-	return lst;
+	return st_lst;
 }
 
-void lListFree(LList *lst)
+void ll_free(LList *st_lst)
 {
-	if (lst->m_count > 0)
+	if (st_lst->m_count > 0)
 	{
 		// set current as first node
-		LLNode *current = lst->m_head;
+		LLNode *current = st_lst->m_head;
 
 		// free all intermediate nodes
-		while (current != lst->m_tail)
+		while (current != st_lst->m_tail)
 		{
 			current = current->m_next;
-			lLNodeFree(current->m_prev);
+			lln_free(current->m_prev);
 		}
 
 		// free tail node
-		lLNodeFree(lst->m_tail);
+		lln_free(st_lst->m_tail);
 	}
 
 	// verbose info
 	if (VERBOSE)
 	{
 		printf("Freeing memory for linked list..\n");
-		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LList), sizeof(*lst));
+		printf("\tEstimate/Actual: %lu/%lu bytes\n", sizeof(LList), sizeof(*st_lst));
 	}
 
-	free(lst);
+	// free memory allocated by linked list
+	free(st_lst);
 
 	return;
 }
 
-void lListAppend(LList *lst, int value)
+void ll_append(LList *st_lst, int value)
 {
 	// create new node
-	LLNode *node = lLNodeInit(value);
+	LLNode *node= lln_init(value);
 
 	// append node to lst
-	if (lst->m_count == 0)
+	if (st_lst->m_count == 0)
 	{
 		// first element act as both head and tail
-		lst->m_head = lst->m_tail = node;
+		st_lst->m_head = st_lst->m_tail = node;
 	}
 	else
 	{
 		// set new node as tail nodes next
-		lst->m_tail->m_next = node;
+		st_lst->m_tail->m_next = node;
 		// set new nodes prev as current tail
-		node->m_prev = lst->m_tail;
+		node->m_prev = st_lst->m_tail;
 		// update tail to new node
-		lst->m_tail = node;
+		st_lst->m_tail = node;
 	}
 
 	// increment list counter
-	lst->m_count++;
+	st_lst->m_count++;
 
 	return;
 }
 
-void lListPush(LList *lst, int value)
+void ll_push(LList *st_lst, int value)
 {
 	// create a new node
-	LLNode *node = lLNodeInit(value);
+	LLNode *node = lln_init(value);
 
 	// prepend node to list
-	if (lst->m_count ==0)
+	if (st_lst->m_count == 0)
 	{
 		// first element act as both head and tail
-		lst->m_head = lst->m_tail = node;
+		st_lst->m_head = st_lst->m_tail = node;
 	}
 	else
 	{
 		// set new node as head nodes prev
-		lst->m_head->m_prev = node;
+		st_lst->m_head->m_prev = node;
 		// set new nodes next as current head
-		node->m_next = lst->m_head;
+		node->m_next = st_lst->m_head;
 		// update head to new node
-		lst->m_head = node;
+		st_lst->m_head = node;
 	}
 
 	// increment list counter
-	lst->m_count++;
+	st_lst->m_count++;
 
 	return;
 }
 
-int lListPop(LList *lst)
+int ll_pop(LList *st_lst)
 {
 	// return -1 if list is empty
-	if (lst->m_count <= 0) { return -1; }
+	if (st_lst->m_count <= 0) { return -1; }
 	
 	// save current head node in temp variable
-	LLNode *tmp = lst->m_head;
+	LLNode *tmp = st_lst->m_head;
 
 	// one element case
-	if (lst->m_count == 1)
+	if (st_lst->m_count == 1)
 	{
-		lst->m_head = lst->m_tail = NULL;
+		st_lst->m_head = st_lst->m_tail = NULL;
 	}
 	else
 	{
 		// replace current head with 2nd element in list
-		lst->m_head = lst->m_head->m_next;
+		st_lst->m_head = st_lst->m_head->m_next;
 		// update new heads previous node
-		lst->m_head->m_prev = NULL;
+		st_lst->m_head->m_prev = NULL;
 	}
 
 	// save value of tmp node before freeing it
 	int res = tmp->m_data;
 
 	// free old head node
-	lLNodeFree(tmp);
+	lln_free(tmp);
 
 	// decement list counter
-	lst->m_count--;
+	st_lst->m_count--;
 
 	return res;
 }
 
-void lListPrint(LList *lst)
+void ll_print(LList *st_lst)
 {
-	if (lst->m_count == 0) { printf("[ ]\n"); }
+	if (st_lst->m_count == 0) { printf("[ ]\n"); }
 	else
 	{
-		LLNode *current = lst->m_head;
+		LLNode *current = st_lst->m_head;
 		printf("[%d", current->m_data);
-		while (current != lst->m_tail)
+		while (current != st_lst->m_tail)
 		{
 			current = current->m_next;
 			printf(", %d", current->m_data);

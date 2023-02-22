@@ -4,18 +4,17 @@
 int main()
 {
 	printf("Hello from demo\n");
-	testLib();
 
-	LList *lst = lListInit();
+	LList *lst = ll_init();
 
-	lListAppend(lst, 0);
-	lListAppend(lst, 1);
-	lListAppend(lst, 2);
-	lListAppend(lst, 3);
+	ll_append(lst, 0);
+	ll_append(lst, 1);
+	ll_append(lst, 2);
+	ll_append(lst, 3);
 
-	lListPrint(lst);
+	ll_print(lst);
 
-	lListFree(lst);
+	ll_free(lst);
 
 	return 0;
 }

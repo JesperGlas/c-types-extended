@@ -2,7 +2,7 @@
 #define __LINKED_LIST_H__
 
 #ifndef VERBOSE
-#define VERBOSE 1
+#define VERBOSE 0
 #endif
 
 /**
@@ -31,18 +31,18 @@ typedef struct LLNode
  * 
  * POST:
  * 	(LLNode *):
- * 		A pointer to the new node
+ * 		A pointer to the new node struct
  * */
-LLNode *lLNodeInit(int value);
+LLNode *lln_init(int value);
 
 /**
  * Function to free the memory allocated by the node.
  *
  * PRE:
- * 	(LLNode *) node:
- * 		A pointer to the node
+ * 	(LLNode *) st_node:
+ * 		A pointer to the node struct
  * */
-void lLNodeFree(LLNode *node);
+void lln_free(LLNode *st_node);
 
 
 /**
@@ -67,30 +67,30 @@ typedef struct LList
  *
  * POST:
  * 	(LList *):
- * 		A pointer to the newly created list
+ * 		A pointer to the newly created list struct
  * */
-LList *lListInit();
+LList *ll_init();
 
 /**
  * Function for freeing the memory allocated by the linked list
  *
  * PRE:
- * 	(LList *) lst:
- * 		A pointer to the list
+ * 	(LList *) st_lst:
+ * 		A pointer to the list struct
  * */
-void lListFree(LList *lst);
+void ll_free(LList *st_lst);
 
 /**
  * Function to append a value to the list,
  * 	adding it to the end of the list
  *
  * PRE:
- * 	(LList *) lst:
- * 		A pointer to the list
+ * 	(LList *) lst_st:
+ * 		A pointer to the list struct
  * 	(int) value:
  * 		The value that should be added to the list
  * */
-void lListAppend(LList *lst, int value);
+void ll_append(LList *st_lst, int value);
 
 /**
  * Function to push a value to the list,
@@ -98,33 +98,33 @@ void lListAppend(LList *lst, int value);
  *
  * PRE:
  * 	(LList *) lst:
- * 		A pointer to the list
+ * 		A pointer to the list struct
  * 	(int) value:
  * 		The value that should be added to the list
  * */
-void lListPush(LList *lst, int value);
+void ll_push(LList *st_lst, int value);
 
 /**
  * Function to pop a value from the beginning of the list,
  * 	also removes the element.
  *
  * PRE:
- * 	(LList *) lst:
- * 		A pointer to the list
+ * 	(LList *) st_lst:
+ * 		A pointer to the list struct
  *
  * POST:
  * 	(int):
  * 		The value of the removed element
  * */
-int lListPop(LList *lst);
+int ll_pop(LList *st_lst);
 
 /**
  * Function that prints the list
  *
  * PRE:
  * 	(LList *) lst:
- * 		A pointer to the list
+ * 		A pointer to the list struct
  * */
-void lListPrint(LList *lst);
+void ll_print(LList *st_lst);
 
 #endif

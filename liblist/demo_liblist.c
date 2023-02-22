@@ -8,26 +8,26 @@ int main(int args, char **argv)
 
 
 	// allocate memory for and initialize a list
-	List *lst = initList(5);
+	List *lst = l_init(5);
 
 	// add two elements and sort it
-	listAppend(lst, 100);
-	listAppend(lst, 99);
-	listPrint(lst);
-	listSortBubble(lst);
-	listPrint(lst);
+	l_append(lst, 100);
+	l_append(lst, 99);
+	l_print(lst);
+	l_sort_bubble(lst);
+	l_print(lst);
 
 	// populate the list
 	int tmp[] = {2, 3, 6, 1, 9, 8, 0, 4, 7, 5};
-	listExtend(lst, tmp, 10);
-	listPrint(lst);
+	l_extend(lst, tmp, 10);
+	l_print(lst);
 
 	// sort list
-	listSortQuick(lst);
-	listPrint(lst);
+	l_sort_quick(lst);
+	l_print(lst);
 
 	// free lst
-	freeList(lst);
+	l_free(lst);
 
 	return 0;
 }

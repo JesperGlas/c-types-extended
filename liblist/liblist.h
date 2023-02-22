@@ -41,63 +41,63 @@ typedef struct List
  *	(List *)
  *		Returns a pointer to the newly initialized List struct
  * */
-List *initList(int size);
+List *l_init(int size);
 
 /**
  * Function to free up all memory allocated by the List.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list that is beeing freed.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct.
  * */
-void freeList(List *lst);
+void l_free(List *st_lst);
 
 /**
  * Function to get the current size of the list,
  *	i.e. how many elements it can hold
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  *
  * POST:
  *	(int):
  *		Returns how many elements it can hold with
  *		its current memory allocation.
  * */
-int listSize(List *lst);
+int l_size(List *st_lst);
 
 /**
  * Function to get how many elements are currently in the list.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  *
  * POST:
  *	(int):
  *		Number of elements currently in the list.
  * */
-int listCount(List *lst);
+int l_count(List *st_lst);
 
 /**
  * Function to print the content of the list.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  * */
-void listPrint(List *lst);
+void l_print(List *st_lst);
 
 /**
  * Function to print information about the list such as:
  *	capacity, count and content.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  * */
-void listInfo(List *lst);
+void l_info(List *st_lst);
 
 /**
  * Function to append a value to a list.
@@ -105,12 +105,12 @@ void listInfo(List *lst);
  *	additional memory if needed.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  *	(int) value:
  *		Takes an integer value to add to the list.
  * */
-void listAppend(List *lst, int value);
+void l_append(List *st_lst, int value);
 
 /**
  * Function to append multiple values to a list.
@@ -118,8 +118,8 @@ void listAppend(List *lst, int value);
  *	if needed.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  *	(int[]) values:
  *		Takes an array of new values to be
  *		appended to the list.
@@ -127,14 +127,14 @@ void listAppend(List *lst, int value);
  *		Takes an integer representing how many
  *		new values are to be added to the list.
  * */
-void listExtend(List *lst, int values[], int values_size);
+void l_extend(List *st_lst, int values[], int values_size);
 
 /**
  * Function to pop a value from the list at a given index.
  *
  * PRE:
- *	(List *) lst:
- *		Takes a pointer to the list.
+ *	(List *) st_lst:
+ *		Takes a pointer to the list struct
  *	(int) index:
  *		Takes an integer representing the index
  *		of the value that is to be popped.
@@ -144,43 +144,43 @@ void listExtend(List *lst, int values[], int values_size);
  *		Returns the value at the given index.
  *		Out of bounds returns -1.
  * */
-int listPop(List *lst, int index);
-int listPopFirst(List *lst);
+int l_pop_at(List *st_lst, int index);
+int l_pop(List *st_lst);
 
 /**
  * Functions that sorts the list using the bubble sort algorithm.
  *
  * PRE:
  *	(List *) lst:
- *		Pointer to the list that should be sorted.
+ *		Pointer to the list struct
  * */
-void listSortBubble(List *lst);
+void l_sort_bubble(List *st_lst);
 
 /**
  * Function that sorts the list using the insertion sort algorithm.
  *
  * PRE:
- *	(List *) lst:
- *		Pointer to the list that should be sorted.
+ *	(List *) st_lst:
+ *		Pointer to the list struct
  * */
-void listSortInsertion(List *lst);
+void l_sort_insertion(List *st_lst);
 
 /**
  * Function that sorts the list using the selection sort algorithm.
  *
  * PRE:
- *	(List *) lst:
- *		Pointer to the list that should be sorted.
+ *	(List *) st_lst:
+ *		Pointer to the list struct
  * */
-void listSortSelection(List *lst);
+void l_sort_selection(List *st_lst);
 
 /**
  * Function that sorts the list using the quick sort algorithm.
  *
  * PRE:
  *	(List *) lst:
- *		Pointer to the list that should be sorted.
+ *		Pointer to the list struct
  * */
-void listSortQuick(List *lst);
+void l_sort_quick(List *st_lst);
 
 #endif

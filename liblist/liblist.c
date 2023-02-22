@@ -14,7 +14,7 @@ static void swap(int *a, int *b)
 	*b = tmp;
 }
 
-List *initList(int size)
+List *l_init(int size)
 {
 	// allocating memory for struct
 	List *lst = malloc(sizeof(List));
@@ -48,7 +48,7 @@ List *initList(int size)
 	return lst;
 }
 
-void freeList(List *lst)
+void l_free(List *lst)
 {
 	// free memory of data
 	free(lst->m_data);
@@ -76,17 +76,17 @@ void freeList(List *lst)
 	}
 }
 
-int listSize(List *lst)
+int l_size(List *lst)
 {
 	return lst->m_size;
 }
 
-int listCount(List *lst)
+int l_count(List *lst)
 {
 	return lst->m_ptr;
 }
 
-void listPrint(List *lst)
+void l_print(List *lst)
 {
 	if (0 < lst->m_ptr)
 	{
@@ -99,16 +99,16 @@ void listPrint(List *lst)
 	}
 }
 
-void listInfo(List *lst)
+void l_info(List *lst)
 {
 	printf("### LIST INFO ###\n");
 	printf("Count/Size: %d/%d\n", lst->m_ptr, lst->m_size);
 	printf("Data:\n");
-	listPrint(lst);
+	l_print(lst);
 	printf("### END ###\n");
 }
 
-void listAppend(List *lst, int value)
+void l_append(List *lst, int value)
 {
 	// if pointer exceeds size, allocate larger array
 	if (lst->m_ptr >= lst->m_size)
@@ -169,7 +169,7 @@ void listAppend(List *lst, int value)
 	lst->m_ptr++;
 }
 
-void listExtend(List *lst, int values[], int values_count)
+void l_extend(List *lst, int values[], int values_count)
 {
 	int new_count = lst->m_ptr + values_count;
 
@@ -230,7 +230,7 @@ void listExtend(List *lst, int values[], int values_count)
 	}
 }
 
-int listPop(List *lst, int index)
+int l_pop_at(List *lst, int index)
 {
 	// check index out of bounds
 	if (index < 0 || index >= lst->m_ptr)
@@ -257,12 +257,12 @@ int listPop(List *lst, int index)
 	return tmp;
 }
 
-int listPopFirst(List *lst)
+int l_pop(List *lst)
 {
-	return listPop(lst, 0);
+	return l_pop_at(lst, 0);
 }
 
-void listSortBubble(List *lst)
+void l_sort_bubble(List *lst)
 {
 	// verbose info, counts swaps
 	int swaps = 0;
@@ -298,9 +298,9 @@ void listSortBubble(List *lst)
 	{
 		printf("Bubblesorted in %d swaps.\n", swaps);
 	}
-} // end listSortBubble
+} // end l_sort_Bubble
 
-void listSortInsertion(List *lst)
+void l_sort_insertion(List *lst)
 {
 	// verbose info, counts swaps
 	int swaps = 0;
@@ -346,7 +346,7 @@ void listSortInsertion(List *lst)
 	}
 } // end of listInsertionSort
 
-void listSortSelection(List *lst)
+void l_sort_selection(List *lst)
 {
 	// verbose info, counts swaps
 	int swaps = 0;
@@ -384,9 +384,9 @@ void listSortSelection(List *lst)
 	{
 		printf("Selection Sort in %d swaps.\n", swaps);
 	}
-} // end of listSortSelection
+} // end of l_sort_Selection
 
-static int listSortAroundPivot(List *lst, int low, int high)
+static int aux_sort_around_pivot(List *lst, int low, int high)
 {
 	// nothing to sort if high and low are equal
 	if (low == high)
@@ -414,21 +414,21 @@ static int listSortAroundPivot(List *lst, int low, int high)
 	return (i - 1);
 }
 
-static void listSortQuickAux(List *lst, int low, int high)
+static void aux_sort_quick(List *lst, int low, int high)
 {
 	// only sort if low index not equal high index
 	if (low < high)
 	{
 		// find pivot point between high and low
-		int pivot = listSortAroundPivot(lst, low, high);
+		int pivot = aux_sort_around_pivot(lst, low, high);
 
 		// sort both sides of pivot recursively
-		listSortQuickAux(lst, low, (pivot - 1));
-		listSortQuickAux(lst, (pivot + 1), high);
+		aux_sort_quick(lst, low, (pivot - 1));
+		aux_sort_quick(lst, (pivot + 1), high);
 	}
-} // end of listSortQuickAux
+} // end of aux_sort_quick
 
-void listSortQuick(List *lst)
+void l_sort_quick(List *lst)
 {
 	// make sure list has at least two elements
 	if (lst->m_ptr < 2)
@@ -438,5 +438,5 @@ void listSortQuick(List *lst)
 	int n = lst->m_ptr;
 
 	// sort list recursively
-	listSortQuickAux(lst, 0, (n - 1));
+	aux_sort_quick(lst, 0, (n - 1));
 }

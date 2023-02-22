@@ -34,6 +34,8 @@ void lLNodeFree(LLNode *node)
 	}
 
 	free(node);
+
+	return;
 }
 
 LList *lListInit()
@@ -79,6 +81,8 @@ void lListFree(LList *lst)
 	}
 
 	free(lst);
+
+	return;
 }
 
 void lListAppend(LList *lst, int value)
@@ -96,14 +100,43 @@ void lListAppend(LList *lst, int value)
 	{
 		// set new node as tail nodes next
 		lst->m_tail->m_next = node;
-		// set new nodes prev as old tail
+		// set new nodes prev as current tail
 		node->m_prev = lst->m_tail;
 		// update tail to new node
 		lst->m_tail = node;
 	}
 
-	// increment list count
+	// increment list counter
 	lst->m_count++;
+
+	return;
+}
+
+void lListPush(LList *lst, int value)
+{
+	// create a new node
+	LLNode *node = lLNodeInit(value);
+
+	// prepend node to list
+	if (lst->m_count ==0)
+	{
+		// first element act as both head and tail
+		lst->m_head = lst->m_tail = node;
+	}
+	else
+	{
+		// set new node as head nodes prev
+		lst->m_head->m_prev = node;
+		// set new nodes next as current head
+		node->m_next = lst->m_head;
+		// update head to new node
+		lst->m_head = node;
+	}
+
+	// increment list counter
+	lst->m_count++;
+
+	return;
 }
 
 int lListPop(LList *lst)

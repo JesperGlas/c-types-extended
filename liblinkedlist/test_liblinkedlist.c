@@ -32,6 +32,21 @@ void test_lListAppend(void)
 	lListFree(lst);
 }
 
+void test_lListPush(void)
+{
+	LList *lst = lListInit();
+
+	lListPush(lst, 2);
+	lListPush(lst, 1);
+	lListPush(lst, 0);
+
+	TEST_ASSERT_EQUAL(3, lst->m_count);
+	TEST_ASSERT_EQUAL(0, lst->m_head->m_data);
+	TEST_ASSERT_EQUAL(2, lst->m_tail->m_data);
+
+	lListFree(lst);
+}
+
 void test_lListPop(void)
 {
 	LList *lst = lListInit();
@@ -62,6 +77,7 @@ int main()
 	
 	RUN_TEST(test_lListInit);
 	RUN_TEST(test_lListAppend);
+	RUN_TEST(test_lListPush);
 	RUN_TEST(test_lListPop);
 
 	return UNITY_END();

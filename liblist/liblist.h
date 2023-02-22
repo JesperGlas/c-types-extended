@@ -174,4 +174,13 @@ void listSortInsertion(List *lst);
  * */
 void listSortSelection(List *lst);
 
+/**
+ * Function that sorts the list using the quick sort algorithm.
+ *
+ * PRE:
+ *	(List *) lst:
+ *		Pointer to the list that should be sorted.
+ * */
+void listSortQuick(List *lst);
+
 #endif

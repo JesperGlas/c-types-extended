@@ -354,3 +354,57 @@ void listSortSelection(List *lst)
 		swap(&lst->m_data[i], smallest);
 	} // end of outer loop
 }
+
+static int listSortAroundPivot(List *lst, int low, int high)
+{
+	// nothing to sort if high and low are equal
+	if (low == high)
+		return low;
+
+	// set last element at high index as pivot value
+	int pivot = lst->m_data[high];
+
+	// set index for lowest unsorted element
+	int i = low;
+
+	// sorting phase loop
+	for (int j = low; j <= high; j++)
+	{
+		// if element at index j is less or equal to pivot value
+		if (lst->m_data[j] <= pivot)
+		{
+			// swap elem[j] with first unsorted element and increment i
+			swap(&lst->m_data[i++], &lst->m_data[j]);
+		}
+	} // end loop
+	
+	// return i - 1 to compensate for last i increment
+	return (i - 1);
+}
+
+static void listSortQuickAux(List *lst, int low, int high)
+{
+	// only sort if low index not equal high index
+	if (low < high)
+	{
+		// find pivot point between high and low
+		int pivot = listSortAroundPivot(lst, low, high);
+
+		// sort both sides of pivot recursively
+		listSortQuickAux(lst, low, (pivot - 1));
+		listSortQuickAux(lst, (pivot + 1), high);
+	}
+}
+
+void listSortQuick(List *lst)
+{
+	// make sure list has at least two elements
+	if (lst->m_ptr < 2)
+		return;
+
+	// set variable for list length
+	int n = lst->m_ptr;
+
+	// sort list recursively
+	listSortQuickAux(lst, 0, (n - 1));
+}

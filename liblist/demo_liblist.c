@@ -23,7 +23,7 @@ int main(int args, char **argv)
 	listPrint(lst);
 
 	// sort list
-	listSortSelection(lst);
+	listSortQuick(lst);
 	listPrint(lst);
 
 	// free lst

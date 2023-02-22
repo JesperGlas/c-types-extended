@@ -116,6 +116,7 @@ static void testListSortTemplate(void (*sort_func)(List *))
 void testListSortBubble(void) { testListSortTemplate(listSortBubble); }
 void testListSortInsertion(void) { testListSortTemplate(listSortInsertion); }
 void testListSortSelection(void) { testListSortTemplate(listSortSelection); }
+void testListSortQuick(void) { testListSortTemplate(listSortQuick); }
 
 int main(void)
 {
@@ -126,6 +127,7 @@ int main(void)
 	RUN_TEST(testListExtend);
 	RUN_TEST(testListSortBubble);
 	RUN_TEST(testListSortInsertion);
+	RUN_TEST(testListSortQuick);
 	
 	return UNITY_END();
 }
